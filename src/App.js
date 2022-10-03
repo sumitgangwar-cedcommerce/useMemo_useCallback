@@ -1,38 +1,31 @@
 import './App.css';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback,useState } from 'react';
+import Component1 from './Component1';
+import Component2 from './Component2';
+import Component3 from './Component3';
 
 
 function App() {
-  const [nums , setNums] = useState({1:0 , 2:0})
-  const [change , setChange] = useState(false)
-  const [sum , setSum] = useState()
+  const [inp , setInp] = useState()
 
-  const style = {
-    color : change ? "White" : "Black",
-    backgroundColor : change ? "Steelblue" : "slategray"
-  }
+  const [inp2 , setInp2] = useState()
 
-  const addNums = ()=>{
-    setSum(Number(nums[1])+Number(nums[2]))
-  }
-
-  const multiply = useMemo(()=>{
-    console.log("Product =>",Number(nums[1]*Number(nums[2])))
-  },[nums])
-
-
-
-  
+  const getData = useCallback((d)=>{
+    console.log(d)
+    setInp(d)
+  },[])
+  const getData2 = useCallback((d)=>{
+    console.log(d)
+    setInp2(d)
+  },[])
+ 
   return (
-    <div className="App">
-      <input type='number' onChange={(event)=>{nums[1] = event.target.value;setNums({...nums})}} /><br />
-      <input type='number' onChange={(event)=>{nums[2] = event.target.value;setNums({...nums})}} /><br />
-      <button onClick={addNums}>Add</button><br />
-      Sum = {sum}<br />
-      {multiply}
-      <button style={style} onClick={()=> setChange(!change)}>Toggle Button color</button>
+    <div className='App'>
+      <Component1 getData={getData}/>
+      <Component2 val={inp} getData={getData2} />
+      <Component3 val={inp2}/>
     </div>
-  );
+  )
 }
 
 export default App;
